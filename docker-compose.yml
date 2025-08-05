@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  user-service:
+    build: ./user-service
+    ports:
+      - "3001:3001"
+    networks:
+      - my-network
+
+  post-service:
+    build: ./post-service
+    ports:
+      - "3002:3002"
+    networks:
+      - my-network
+
+  gateway:
+    build: ./gateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      - user-service
+      - post-service
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge
