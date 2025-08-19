@@ -1,0 +1,39 @@
+http:
+  port: 8080
+
+apiEndpoints:
+  users:
+    path: /api/users/*
+  auth:
+    path: /api/login
+  posts:
+    path: /api/posts/*
+
+serviceEndpoints:
+  userService:
+    url: http://user-service:3001
+  postService:
+    url: http://post-service:3002
+
+policies:
+  - proxy
+
+pipelines:
+  userPipeline:
+    apiEndpoints:
+      - users
+      - auth
+    policies:
+      - proxy:
+          - action:
+              serviceEndpoint: userService
+              changeOrigin: true
+
+  postPipeline:
+    apiEndpoints:
+      - posts
+    policies:
+      - proxy:
+          - action:
+              serviceEndpoint: postService
+              changeOrigin: true
