@@ -2,7 +2,6 @@ http:
   port: 3000
 
 apiEndpoints:
-  # Users
   users:
     path: /users
     methods: GET, POST, PUT, DELETE
@@ -11,7 +10,6 @@ apiEndpoints:
     path: /users/:id
     methods: GET, PUT, DELETE
 
-  # Posts
   posts:
     path: /posts
     methods: GET, POST
@@ -34,7 +32,6 @@ policies:
   - proxy
 
 pipelines:
-  # Users pipeline
   users-pipeline:
     apiEndpoints:
       - users
@@ -46,7 +43,6 @@ pipelines:
               changeOrigin: true
               strip_path: false
 
-  # Posts pipeline
   posts-pipeline:
     apiEndpoints:
       - posts

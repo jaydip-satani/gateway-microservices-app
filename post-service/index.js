@@ -35,7 +35,6 @@ app.put("/posts/:id", (req, res) => {
   res.json(posts[index]);
 });
 
-// DELETE post
 app.delete("/posts/:id", (req, res) => {
   const index = posts.findIndex((p) => p.id === req.params.id);
   if (index === -1) return res.status(404).json({ error: "Post not found" });
